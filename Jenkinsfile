@@ -17,6 +17,10 @@ node {
     checkout scm
   }
 
+  stage ('Terraform initialize') {
+    sh 'terraform init'
+  }
+  
   stage ('Terraform Plan') {
     sh 'terraform plan -no-color -out=create.tfplan'
   }

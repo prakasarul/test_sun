@@ -6,7 +6,7 @@ resource "aws_route_table" "moonshot-public" {
         gateway_id = "${aws_internet_gateway.moonshot-gw.id}"
     }
 
-    tags {
+    tags = {
         Name = "moonshot-public"
     }
 }

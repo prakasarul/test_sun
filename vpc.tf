@@ -6,6 +6,6 @@ resource "aws_vpc" "moonshot" {
     enable_dns_hostnames = "true"
     enable_classiclink = "false"
     tags {
-        Name = "main"
+        Name = "moonshot"
     }
 }

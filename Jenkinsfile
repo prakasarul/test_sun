@@ -26,7 +26,7 @@ node {
   }
 
   // Optional wait for approval
-  input 'Deploy stack?'
+  // input 'Deploy stack?'
 
   stage ('Terraform Apply') {
     sh 'terraform apply -no-color create.tfplan'

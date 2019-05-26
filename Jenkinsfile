@@ -37,11 +37,4 @@ node {
     sleep 2
     sh 'terraform show'
   }
-
-  stage ('Notification') {
-    mail from: "gopac25@gmail.com",
-         to: "gopac25@gmail.com",
-         subject: "Terraform build complete",
-         body: "Jenkins job ${env.JOB_NAME} - build ${env.BUILD_NUMBER} complete"
-  }
 }

@@ -37,7 +37,7 @@ node {
     sleep 2
     sh 'terraform show'
   }
-  stage ('Terraform Destroy') {
-    sh 'terraform destroy'
+  stage ('Terraform Destroy ') {
+    sh 'terraform destroy -no-color'
   }
 }

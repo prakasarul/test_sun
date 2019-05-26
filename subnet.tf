@@ -5,7 +5,7 @@ resource "aws_subnet" "moonshot-public" {
     map_public_ip_on_launch = "true"
     availability_zone = "ap-south-1a"
 
-    tags {
+    tags = {
         Name = "moonshot-public"
     }
 }
@@ -15,7 +15,7 @@ resource "aws_subnet" "moonshot-private-web" {
     map_public_ip_on_launch = "false"
     availability_zone = "ap-south-1a"
 
-    tags {
+    tags = {
         Name = "moonshot-private-web"
     }
 }
@@ -25,7 +25,7 @@ resource "aws_subnet" "moonshot-private-slave" {
     map_public_ip_on_launch = "false"
     availability_zone = "ap-south-1b"
 
-    tags {
+    tags = {
         Name = "moonshot-private-slave"
     }
 }

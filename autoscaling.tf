@@ -24,7 +24,7 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-web" {
   health_check_type = "EC2"
   force_delete = true
 
-  tag = {
+  tag {
       key = "Name"
       value = "web_server"
       propagate_at_launch = true
@@ -41,7 +41,7 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-app" {
   health_check_type = "EC2"
   force_delete = true
 
-  tag = {
+  tag {
       key = "Name"
       value = "app_server"
       propagate_at_launch = true

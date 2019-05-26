@@ -38,6 +38,6 @@ node {
     sh 'terraform show'
   }
   stage ('Terraform Destroy ') {
-    sh 'terraform destroy -no-color'
+    sh 'terraform destroy -auto-approve'
   }
 }

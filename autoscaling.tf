@@ -2,7 +2,7 @@ resource "aws_launch_configuration" "moonshot-launchconfig-web" {
   name_prefix          = "moonshot-launchconfig-web"
   image_id             = "${lookup(var.AMIS, var.AWS_REGION)}"
   instance_type        = "t2.micro"
-  key_name             = "${aws_key_pair.mykeypair.key_name}"
+  key_name             = "${aws_key_pair.mykey.key_name}"
   security_groups      = ["${aws_security_group.allow-ssh.id}"]
 }
 
@@ -10,7 +10,7 @@ resource "aws_launch_configuration" "moonshot-launchconfig-app" {
   name_prefix          = "moonshot-launchconfig-app"
   image_id             = "${lookup(var.AMIS, var.AWS_REGION)}"
   instance_type        = "t2.micro"
-  key_name             = "${aws_key_pair.mykeypair.key_name}"
+  key_name             = "${aws_key_pair.mykey.key_name}"
   security_groups      = ["${aws_security_group.allow-ssh.id}"]
 }
 

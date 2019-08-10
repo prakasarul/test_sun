@@ -19,9 +19,10 @@ resource "aws_launch_configuration" "moonshot-launchconfig-app" {
 resource "aws_autoscaling_group" "moonshot-autoscaling-web" {
   name                 = "moonshot-autoscaling-web"
   vpc_zone_identifier  = ["${aws_subnet.moonshot-private-web.id}"]
+  availability_zones = ["${data.aws_availability_zones.all.names}"]
   launch_configuration = "${aws_launch_configuration.moonshot-launchconfig-web.name}"
-  min_size             = 1
-  max_size             = 2
+  min_size             = 2
+  max_size             = 4
   health_check_grace_period = 300
   health_check_type = "EC2"
   force_delete = true
@@ -36,9 +37,10 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-web" {
 resource "aws_autoscaling_group" "moonshot-autoscaling-app" {
   name                 = "moonshot-autoscaling-app"
   vpc_zone_identifier  = ["${aws_subnet.moonshot-private-web.id}"]
+  availability_zones = ["${data.aws_availability_zones.all.names}"]
   launch_configuration = "${aws_launch_configuration.moonshot-launchconfig-app.name}"
-  min_size             = 1
-  max_size             = 2
+  min_size             = 2
+  max_size             = 4
   health_check_grace_period = 300
   health_check_type = "EC2"
   force_delete = true

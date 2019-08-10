@@ -26,7 +26,7 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-web" {
 
   tag {
       key = "Name"
-      value = "web_server"
+      value = "${format("web-%03d", count.index + 1)}"
       propagate_at_launch = true
   }
 }

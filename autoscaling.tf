@@ -33,6 +33,11 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-web" {
   }
 }
 
+resource "aws_autoscaling_attachment" "asg_attachment_bar_web" {
+  autoscaling_group_name = "${aws_autoscaling_group.moonshot-autoscaling-web.id}"
+  elb                    = "${aws_elb.my-elb.id}"
+}
+
 resource "aws_autoscaling_group" "moonshot-autoscaling-app" {
   name                 = "moonshot-autoscaling-app"
   vpc_zone_identifier  = ["${aws_subnet.moonshot-private-app.id}"]
@@ -48,4 +53,8 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-app" {
       value = "${format("app-%03d", count.index + 1)}"
       propagate_at_launch = true
   }
+}
+resource "aws_autoscaling_attachment" "asg_attachment_bar_app" {
+  autoscaling_group_name = "${aws_autoscaling_group.moonshot-autoscaling-app.id}"
+  elb                    = "${aws_elb.my-elb.id}"
 }

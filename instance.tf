@@ -10,10 +10,4 @@ resource "aws_instance" "jump" {
 
   # the public SSH key
   key_name = "${aws_key_pair.mykey.key_name}"
-  
-  tag {
-    key = "Name"
-    value = "${format("jump-%03d", count.index + 1)}"
-    propagate_at_launch = true
-  }
 }

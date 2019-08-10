@@ -36,7 +36,7 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-web" {
 
 resource "aws_autoscaling_group" "moonshot-autoscaling-app" {
   name                 = "moonshot-autoscaling-app"
-  vpc_zone_identifier  = ["${aws_subnet.moonshot-private-web.id}"]
+  vpc_zone_identifier  = ["${aws_subnet.moonshot-private-app.id}"]
   availability_zones = ["${data.aws_availability_zones.all.names}"]
   launch_configuration = "${aws_launch_configuration.moonshot-launchconfig-app.name}"
   min_size             = 2

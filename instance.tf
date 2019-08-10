@@ -1,6 +1,12 @@
 resource "aws_instance" "jump" {
   ami           = "${lookup(var.AMIS, var.AWS_REGION)}"
   instance_type = "t2.micro"
+  
+    tag {
+      key = "Name"
+      value = "Jump"
+      propagate_at_launch = true
+  }
 
   # the VPC subnet
   subnet_id = "${aws_subnet.moonshot-public.id}"

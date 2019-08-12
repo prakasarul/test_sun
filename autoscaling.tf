@@ -29,6 +29,7 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-web" {
   connection {
     type = "ssh"
     user = "ec2-user"
+    private_key = "${file("${var.PATH_TO_PRIVATE_KEY}")}"
   }
   
   provisioner "remote-exec" {
@@ -63,6 +64,7 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-app" {
   connection {
     type = "ssh"
     user = "ec2-user"
+    private_key = "${file("${var.PATH_TO_PRIVATE_KEY}")}"
   }
   
   provisioner "remote-exec" {

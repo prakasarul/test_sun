@@ -20,7 +20,7 @@ resource "aws_security_group" "allow-ssh" {
     from_port = 2049
     to_port   = 2049
     protocol  = "tcp"
-    security_groups = ["${aws_security_group.allow-ssh.id}"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
   
   ingress {

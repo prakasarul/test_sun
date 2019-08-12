@@ -17,4 +17,4 @@ variable "PATH_TO_PUBLIC_KEY" {
 }
 variable "count" {
     default = 1
-  }
+}

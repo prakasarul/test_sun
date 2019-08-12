@@ -17,6 +17,13 @@ resource "aws_security_group" "allow-ssh" {
   } 
   
   ingress {
+    from_port = 2049
+    to_port   = 2049
+    protocol  = "tcp"
+    security_groups = ["${aws_security_group.allow-ssh.id}"]
+  }
+  
+  ingress {
       from_port = 80
       to_port = 80
       protocol = "tcp"

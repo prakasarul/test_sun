@@ -1,33 +1,27 @@
 resource "aws_security_group" "efs_sg" {
-  name        = "Bastion-EFS-SG"
-  vpc_id      = "${var.VPC_id}"
+  name        = "moon_efs_sg"
+  vpc_id      = "${aws_vpc.moonshot.id}"
 
   ingress {
     from_port = 2049
     to_port   = 2049
     protocol  = "tcp"
-    security_groups = ["${aws_security_group.bastion_public_sg.id}"]
+    security_groups = ["${aws_security_group.allow-ssh.id}"]
   }
 
   tags {
-    Environment     = "${var.PL_ENV}"
-    Project         = "Bastion + ASG + EFS"
-    Owner           = "Iban Marco - ibanmarco@gmail.com"
+    Project         = "Moonshot"
   }
 }
 
-resource "aws_efs_file_system" "bastion_efs" {
+resource "aws_efs_file_system" "data_efs" {
   tags {
-    Name            = "Bastion_EFS"
-    Environment     = "${var.PL_ENV}"
-    Project         = "Bastion + ASG + EFS"
-    Owner           = "Iban Marco - ibanmarco@gmail.com"
+    Name            = "Data_EFS"
   }
 }
 
-resource "aws_efs_mount_target" "bastion_efs_mount" {
+resource "aws_efs_mount_target" "data_efs_mount" {
   count                   = "3"
-  file_system_id          = "${aws_efs_file_system.bastion_efs.id}"
-  subnet_id               = "${element(var.PubSubnet_Ids, count.index)}"
+  file_system_id          = "${aws_efs_file_system.data_efs.id}"
   security_groups         = ["${aws_security_group.efs_sg.id}"]
 }

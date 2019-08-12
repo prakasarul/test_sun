@@ -5,19 +5,6 @@ resource "aws_launch_configuration" "moonshot-launchconfig-web" {
   count                = "${var.count}"
   key_name             = "${aws_key_pair.mykey.key_name}"
   security_groups      = ["${aws_security_group.allow-ssh.id}"]
- 
-  connection {
-    type = "ssh"
-    user = "ec2-user"
-    private_key = "${file("${var.PATH_TO_PRIVATE_KEY}")}"
-  }
-  
-  provisioner "remote-exec" {
-    inline = [
-      "mkdir /webdata_efs",
-      "mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 ${aws_efs_file_system.webdata_efs.dns_name}:/ /webdata_efs",
-    ]
-  }
 }
 
 resource "aws_launch_configuration" "moonshot-launchconfig-app" {
@@ -27,19 +14,6 @@ resource "aws_launch_configuration" "moonshot-launchconfig-app" {
   count                = "${var.count}"
   key_name             = "${aws_key_pair.mykey.key_name}"
   security_groups      = ["${aws_security_group.allow-ssh.id}"]
-  
-  connection {
-    type = "ssh"
-    user = "ec2-user"
-    private_key = "${file("${var.PATH_TO_PRIVATE_KEY}")}"
-  }
-  
-  provisioner "remote-exec" {
-    inline = [
-      "mkdir /appdata_efs",
-      "mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 ${aws_efs_file_system.appdata_efs.dns_name}:/ /appdata_efs",
-    ]
-  }
 }
 
 resource "aws_autoscaling_group" "moonshot-autoscaling-web" {

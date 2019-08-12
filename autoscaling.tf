@@ -25,8 +25,15 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-web" {
   health_check_grace_period = 300
   health_check_type = "EC2"
   force_delete = true
-  
-  connection {
+
+  tag {
+      key = "Name"
+      value = "${format("web-%03d", count.index + 1)}"
+      propagate_at_launch = true
+  }
+}
+
+connection {
     type = "ssh"
     user = "ec2-user"
     private_key = "${file("${var.PATH_TO_PRIVATE_KEY}")}"
@@ -38,13 +45,6 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-web" {
       "mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 ${aws_efs_file_system.webdata_efs.dns_name}:/ /webdata_efs",
     ]
   }
-
-  tag {
-      key = "Name"
-      value = "${format("web-%03d", count.index + 1)}"
-      propagate_at_launch = true
-  }
-}
 
 resource "aws_autoscaling_attachment" "asg_attachment_bar_web" {
   autoscaling_group_name = "${aws_autoscaling_group.moonshot-autoscaling-web.id}"
@@ -60,8 +60,15 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-app" {
   health_check_grace_period = 300
   health_check_type = "EC2"
   force_delete = true
-  
-  connection {
+
+  tag {
+      key = "Name"
+      value = "${format("app-%03d", count.index + 1)}"
+      propagate_at_launch = true
+  }
+}
+
+connection {
     type = "ssh"
     user = "ec2-user"
     private_key = "${file("${var.PATH_TO_PRIVATE_KEY}")}"
@@ -74,12 +81,6 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-app" {
     ]
   }
 
-  tag {
-      key = "Name"
-      value = "${format("app-%03d", count.index + 1)}"
-      propagate_at_launch = true
-  }
-}
 resource "aws_autoscaling_attachment" "asg_attachment_bar_app" {
   autoscaling_group_name = "${aws_autoscaling_group.moonshot-autoscaling-app.id}"
   elb                    = "${aws_elb.my-elb.id}"

@@ -25,6 +25,18 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-web" {
   health_check_grace_period = 300
   health_check_type = "EC2"
   force_delete = true
+  
+  connection {
+    type = "ssh"
+    user = "ec2-user"
+  }
+  
+  provisioner "remote-exec" {
+    inline = [
+      "mkdir /webdata_efs",
+      "mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 ${aws_efs_file_system.webdata_efs.dns_name}:/ /webdata_efs",
+    ]
+  }
 
   tag {
       key = "Name"
@@ -47,6 +59,18 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-app" {
   health_check_grace_period = 300
   health_check_type = "EC2"
   force_delete = true
+  
+  connection {
+    type = "ssh"
+    user = "ec2-user"
+  }
+  
+  provisioner "remote-exec" {
+    inline = [
+      "mkdir /appdata_efs",
+      "mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 ${aws_efs_file_system.appdata_efs.dns_name}:/ /appdata_efs",
+    ]
+  }
 
   tag {
       key = "Name"

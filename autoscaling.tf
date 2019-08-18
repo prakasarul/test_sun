@@ -5,7 +5,7 @@ resource "aws_launch_configuration" "moonshot-launchconfig-web" {
   count                = "${var.count}"
   key_name             = "${aws_key_pair.mykey.key_name}"
   security_groups      = ["${aws_security_group.allow-ssh.id}"]
-  user_data = "${template_file.user_data_web.rendered}"
+  user_data = "${file("webmount.sh")}"
 }
 
 resource "aws_launch_configuration" "moonshot-launchconfig-app" {
@@ -15,7 +15,7 @@ resource "aws_launch_configuration" "moonshot-launchconfig-app" {
   count                = "${var.count}"
   key_name             = "${aws_key_pair.mykey.key_name}"
   security_groups      = ["${aws_security_group.allow-ssh.id}"]
-  user_data = "${template_file.user_data_app.rendered}"
+  user_data = "${file("appmount.sh")}"
 }
 
 resource "aws_autoscaling_group" "moonshot-autoscaling-web" {

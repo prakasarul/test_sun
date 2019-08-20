@@ -1,19 +1,42 @@
-output "mount_target_dns_names" {
-  value       = [coalescelist(aws_efs_mount_target.webdata_efs.*.dns_name, [""])]
-  description = "List of EFS mount target DNS names"
+# --------------
+# Module Outputs
+# --------------
+output "efs_filesystem_id" {
+  value = "${aws_efs_file_system.webdata_efs.id}"
 }
 
-output "mount_target_ids" {
-  value       = [coalescelist(aws_efs_mount_target.webdata_efst.*.id, [""])]
-  description = "List of EFS mount target IDs (one per Availability Zone)"
+output "efs_mount_target_id" {
+  value = "${aws_efs_mount_target.webdata_efs_1.*.id}"
 }
 
-output "mount_target_ips" {
-  value       = [coalescelist(aws_efs_mount_target.webdata_efs.*.ip_address, [""])]
-  description = "List of EFS mount target IPs (one per Availability Zone)"
+output "efs_mount_target_dns_name" {
+  value = "${aws_efs_mount_target.webdata_efs_1.*.dns_name}"
 }
 
-output "network_interface_ids" {
-  value       = [coalescelist(aws_efs_mount_target.webdata_efs.*.network_interface_id, [""])]
-  description = "List of mount target network interface IDs"
+output "efs_mount_target_network_interface_id" {
+  value = "${aws_efs_mount_target.webdata_efs_1.*.network_interface_id}"
+}
+
+output "efs_mount_target_ip_address" {
+  value = "${aws_efs_mount_target.webdata_efs_1.*.ip_address}"
+}
+
+output "efs_filesystem_id" {
+  value = "${aws_efs_file_system.appdata_efs.id}"
+}
+
+output "efs_mount_target_id" {
+  value = "${aws_efs_mount_target.appdata_efs_1.*.id}"
+}
+
+output "efs_mount_target_dns_name" {
+  value = "${aws_efs_mount_target.appdata_efs_1.*.dns_name}"
+}
+
+output "efs_mount_target_network_interface_id" {
+  value = "${aws_efs_mount_target.appdata_efs_1.*.network_interface_id}"
+}
+
+output "efs_mount_target_ip_address" {
+  value = "${aws_efs_mount_target.appdata_efs_1.*.ip_address}"
 }

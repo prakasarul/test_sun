@@ -1,4 +1,6 @@
 #!/bin/bash
 
+sudo yum install -y nfs-utils
 sudo mkdir /efs
-sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 ${aws_efs_file_system.webdata_efs.dns_name}:/ /efs
+sudo chmod 777 /efs
+sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 ${aws_efs_file_system.webdata_efs.ip_address}:/ /efs

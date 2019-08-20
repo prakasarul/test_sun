@@ -1,8 +1,3 @@
-output "dns_name" {
-  value       = local.dns_name
-  description = "EFS DNS name"
-}
-
 output "mount_target_dns_names" {
   value       = [coalescelist(aws_efs_mount_target.webdata_efs.*.dns_name, [""])]
   description = "List of EFS mount target DNS names"

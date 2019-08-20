@@ -1,18 +1,3 @@
-output "arn" {
-  value       = join("", aws_efs_file_system.webdata_efs.*.arn)
-  description = "EFS ARN"
-}
-
-output "id" {
-  value       = join("", aws_efs_file_system.webdata_efs.*.id)
-  description = "EFS ID"
-}
-
-output "host" {
-  value       = module.dns.hostname
-  description = "Route53 DNS hostname for the EFS"
-}
-
 output "dns_name" {
   value       = local.dns_name
   description = "EFS DNS name"

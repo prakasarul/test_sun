@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sleep 60
+sleep 180
 sudo yum install -y nfs-utils
 sudo mkdir /efs
 sudo chmod 777 /efs

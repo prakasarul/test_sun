@@ -8,7 +8,7 @@ resource "aws_launch_configuration" "moonshot-launchconfig-web" {
   user_data = "${file("webmount.sh")}"
   
   provisioner "local-exec" {
-    command = echo "web=`terraform output|grep -w -A1 efs_mount_target_ip_address|tail -n 1|sed 's/ //g'`"
+    command = "echo "web=`terraform output|grep -w -A1 efs_mount_target_ip_address|tail -n 1|sed 's/ //g'`""
   }
   
   provisioner "remote-exec" {
@@ -30,7 +30,7 @@ resource "aws_launch_configuration" "moonshot-launchconfig-app" {
   user_data = "${file("appmount.sh")}"
 
   provisioner "local-exec" {
-    command = echo "app=`terraform output|grep -w -A1 efs_mount_target_ip_address_1|tail -n 1|sed 's/ //g'`"
+    command = "echo "app=`terraform output|grep -w -A1 efs_mount_target_ip_address_1|tail -n 1|sed 's/ //g'`""
   }
   
 provisioner "remote-exec" {

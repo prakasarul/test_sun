@@ -46,6 +46,11 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-web" {
   health_check_type = "EC2"
   force_delete = true
 
+  
+provisioner "local-exec" {
+    command = "terraform output|grep -w -A1 efs_mount_target_ip_address|tail -n 1|sed 's/ //g' >web "
+  }
+
   tag {
       key = "Name"
       value = "${format("web-%03d", count.index + 1)}"
@@ -67,6 +72,10 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-app" {
   health_check_grace_period = 300
   health_check_type = "EC2"
   force_delete = true
+  
+  provisioner "local-exec" {
+    command = "terraform output|grep -w -A1 efs_mount_target_ip_address_1|tail -n 1|sed 's/ //g' >app "
+  }
 
   tag {
       key = "Name"

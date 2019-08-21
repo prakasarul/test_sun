@@ -6,6 +6,20 @@ resource "aws_launch_configuration" "moonshot-launchconfig-web" {
   key_name             = "${aws_key_pair.mykey.key_name}"
   security_groups      = ["${aws_security_group.allow-ssh.id}"]
   user_data = "${file("webmount.sh")}"
+  
+ provisioner "remote-exec" {
+ inline = [
+ # mount EFS volume
+ # https://docs.aws.amazon.com/efs/latest/ug/gs-step-three-connect-to-ec2-instance.html
+ # create a directory to mount our efs volume to
+ "sudo mkdir -p /efs_web", 
+ # mount the efs volume
+ "sudo mount -t nfs4 -o nfsvers=4.1 ${aws_efs_mount_target.webdata_efs_1.*.ip_address}:/ /efs_web", 
+ # create fstab entry to ensure automount on reboots
+ # https://docs.aws.amazon.com/efs/latest/ug/mount-fs-auto-mount-onreboot.html#mount-fs-auto-mount-on-creation
+ "sudo su -c \"echo '${aws_efs_mount_target.webdata_efs_1.*.ip_address}:/ /efs_web nfs defaults,vers=4.1 0 0' >> /etc/fstab\"" #create fstab entry to ensure automount on reboots
+ ]
+ }
 }
 
 resource "aws_launch_configuration" "moonshot-launchconfig-app" {
@@ -16,6 +30,20 @@ resource "aws_launch_configuration" "moonshot-launchconfig-app" {
   key_name             = "${aws_key_pair.mykey.key_name}"
   security_groups      = ["${aws_security_group.allow-ssh.id}"]
   user_data = "${file("appmount.sh")}"
+
+provisioner "remote-exec" {
+ inline = [
+ # mount EFS volume
+ # https://docs.aws.amazon.com/efs/latest/ug/gs-step-three-connect-to-ec2-instance.html
+ # create a directory to mount our efs volume to
+ "sudo mkdir -p /efs_app", 
+ # mount the efs volume
+ "sudo mount -t nfs4 -o nfsvers=4.1 ${aws_efs_mount_target.webdata_efs_1.*.ip_address}:/ /efs_app", 
+ # create fstab entry to ensure automount on reboots
+ # https://docs.aws.amazon.com/efs/latest/ug/mount-fs-auto-mount-onreboot.html#mount-fs-auto-mount-on-creation
+ "sudo su -c \"echo '${aws_efs_mount_target.appdata_efs_1.*.ip_address}:/ /efs_app nfs defaults,vers=4.1 0 0' >> /etc/fstab\"" #create fstab entry to ensure automount on reboots
+ ]
+ }
 }
 
 resource "aws_autoscaling_group" "moonshot-autoscaling-web" {

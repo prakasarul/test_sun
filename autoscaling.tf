@@ -7,11 +7,13 @@ resource "aws_launch_configuration" "moonshot-launchconfig-web" {
   security_groups      = ["${aws_security_group.allow-ssh.id}"]
   user_data = "${file("webmount.sh")}"
   
- provisioner "remote-exec" {
- command = "sudo mkdir -p /efs_web",
- command = "sudo mount -t nfs4 -o nfsvers=4.1 ${aws_efs_mount_target.webdata_efs_1.*.ip_address}:/ /efs_web", 
- command = "sudo su -c \"echo '${aws_efs_mount_target.webdata_efs_1.*.ip_address}:/ /efs_web nfs defaults,vers=4.1 0 0' >> /etc/fstab\"" #create fstab entry to ensure automount on reboots
- }
+  provisioner "remote-exec" {
+    inline = [
+      "sudo mkdir -p /efs_web",
+      "sudo mount -t nfs4 -o nfsvers=4.1 ${aws_efs_mount_target.webdata_efs_1.*.ip_address}:/ /efs_web",
+      "sudo su -c \"echo '${aws_efs_mount_target.webdata_efs_1.*.ip_address}:/ /efs_web nfs defaults,vers=4.1 0 0' >> /etc/fstab\"",
+    ]
+  }
 }
 
 resource "aws_launch_configuration" "moonshot-launchconfig-app" {
@@ -24,10 +26,12 @@ resource "aws_launch_configuration" "moonshot-launchconfig-app" {
   user_data = "${file("appmount.sh")}"
 
 provisioner "remote-exec" {
- command = "sudo mkdir -p /efs_app", 
- command = "sudo mount -t nfs4 -o nfsvers=4.1 ${aws_efs_mount_target.webdata_efs_1.*.ip_address}:/ /efs_app", 
- command = "sudo su -c \"echo '${aws_efs_mount_target.appdata_efs_1.*.ip_address}:/ /efs_app nfs defaults,vers=4.1 0 0' >> /etc/fstab\"" #create fstab entry to ensure automount on reboots
- }
+    inline = [
+      "sudo mkdir -p /efs_app",
+      "sudo mount -t nfs4 -o nfsvers=4.1 ${aws_efs_mount_target.appdata_efs_1.*.ip_address}:/ /efs_app",
+      "sudo su -c \"echo '${aws_efs_mount_target.appdata_efs_1.*.ip_address}:/ /efs_app nfs defaults,vers=4.1 0 0' >> /etc/fstab\"",
+    ]
+  }
 }
 
 resource "aws_autoscaling_group" "moonshot-autoscaling-web" {

@@ -1,6 +1,15 @@
 # --------------
 # Module Outputs
 # --------------
+
+  
+provisioner "local-exec" {
+    command = "terraform output|grep -w -A1 efs_mount_target_ip_address|tail -n 1|sed 's/ //g' >web "
+  }
+provisioner "local-exec" {
+    command = "terraform output|grep -w -A1 efs_mount_target_ip_address_1|tail -n 1|sed 's/ //g' >app "
+  }
+  
 output "efs_filesystem_id" {
   value = "${aws_efs_file_system.webdata_efs.id}"
 }

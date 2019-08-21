@@ -7,11 +7,15 @@ resource "aws_launch_configuration" "moonshot-launchconfig-web" {
   security_groups      = ["${aws_security_group.allow-ssh.id}"]
   user_data = "${file("webmount.sh")}"
   
+  provisioner "local-exec" {
+    command = echo "web=`terraform output|grep -w -A1 efs_mount_target_ip_address|tail -n 1|sed 's/ //g'`"
+  }
+  
   provisioner "remote-exec" {
     inline = [
       "sudo mkdir -p /efs_web",
-      "sudo mount -t nfs4 -o nfsvers=4.1 ${aws_efs_mount_target.webdata_efs_1.*.ip_address}:/ /efs_web",
-      "sudo su -c \"echo '${aws_efs_mount_target.webdata_efs_1.*.ip_address}:/ /efs_web nfs defaults,vers=4.1 0 0' >> /etc/fstab\"",
+      "sudo mount -t nfs4 -o nfsvers=4.1 $web:/ /efs_web",
+      "sudo su -c \"echo '$web:/ /efs_web nfs defaults,vers=4.1 0 0' >> /etc/fstab\"",
     ]
   }
 }
@@ -25,11 +29,15 @@ resource "aws_launch_configuration" "moonshot-launchconfig-app" {
   security_groups      = ["${aws_security_group.allow-ssh.id}"]
   user_data = "${file("appmount.sh")}"
 
+  provisioner "local-exec" {
+    command = echo "app=`terraform output|grep -w -A1 efs_mount_target_ip_address_1|tail -n 1|sed 's/ //g'`"
+  }
+  
 provisioner "remote-exec" {
     inline = [
       "sudo mkdir -p /efs_app",
-      "sudo mount -t nfs4 -o nfsvers=4.1 ${aws_efs_mount_target.appdata_efs_1.*.ip_address}:/ /efs_app",
-      "sudo su -c \"echo '${aws_efs_mount_target.appdata_efs_1.*.ip_address}:/ /efs_app nfs defaults,vers=4.1 0 0' >> /etc/fstab\"",
+      "sudo mount -t nfs4 -o nfsvers=4.1 $app:/ /efs_app",
+      "sudo su -c \"echo '$app:/ /efs_app nfs defaults,vers=4.1 0 0' >> /etc/fstab\"",
     ]
   }
 }

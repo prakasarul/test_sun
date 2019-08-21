@@ -27,7 +27,6 @@ provisioner "remote-exec" {
  command = "sudo mkdir -p /efs_app", 
  command = "sudo mount -t nfs4 -o nfsvers=4.1 ${aws_efs_mount_target.webdata_efs_1.*.ip_address}:/ /efs_app", 
  command = "sudo su -c \"echo '${aws_efs_mount_target.appdata_efs_1.*.ip_address}:/ /efs_app nfs defaults,vers=4.1 0 0' >> /etc/fstab\"" #create fstab entry to ensure automount on reboots
- ]
  }
 }
 

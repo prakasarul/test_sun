@@ -29,3 +29,7 @@ resource "aws_efs_file_system" "appdata_efs" {
    subnet_id = "${aws_subnet.moonshot-private-app.id}"
    security_groups = ["${aws_security_group.allow-ssh.id}"]
  }
+
+provisioner "local-exec" {
+    command = "sh efs_pre.sh"
+  }

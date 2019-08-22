@@ -31,5 +31,7 @@ resource "aws_efs_file_system" "appdata_efs" {
  }
 
 provisioner "local-exec" {
-    command = "sh efs_pre.sh"
+   inline = [
+      "sh efs_pre.sh",
+    ]
   }

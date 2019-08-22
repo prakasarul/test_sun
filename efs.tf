@@ -30,8 +30,9 @@ resource "aws_efs_file_system" "appdata_efs" {
    security_groups = ["${aws_security_group.allow-ssh.id}"]
  }
 
-provisioner "local-exec" {
-   inline = [
-      "sh efs_pre.sh",
-    ]
+resource "null_resource" "example2" {
+  provisioner "local-exec" {
+    command = "sh efs_pre.sh"
+    interpreter = ["Bash", "-Command"]
   }
+}

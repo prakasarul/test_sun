@@ -33,6 +33,5 @@ resource "aws_efs_file_system" "appdata_efs" {
 resource "null_resource" "example2" {
   provisioner "local-exec" {
     command = "sh efs_pre.sh"
-    interpreter = ["Bash", "-Command"]
   }
 }

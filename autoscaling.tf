@@ -5,9 +5,7 @@ resource "aws_launch_configuration" "moonshot-launchconfig-web" {
   count                = "${var.count}"
   key_name             = "${aws_key_pair.mykey.key_name}"
   security_groups      = ["${aws_security_group.allow-ssh.id}"]
-  #user_data = "${file("webmount.sh")}"
-  user_data = "sudo mkdir /efs;sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 ${aws_efs_mount_target.webdata_efs_1.*.ip_address}:/ /efs"
-
+  user_data = "${file("webmount.sh")}"
   
   #provisioner "remote-exec" {
   #  inline = [
@@ -25,10 +23,8 @@ resource "aws_launch_configuration" "moonshot-launchconfig-app" {
   count                = "${var.count}"
   key_name             = "${aws_key_pair.mykey.key_name}"
   security_groups      = ["${aws_security_group.allow-ssh.id}"]
-  #user_data = "${file("appmount.sh")}"
-  user_data = "sudo mkdir /efs;sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 ${aws_efs_mount_target.appdata_efs_1.*.ip_address}:/ /efs"
-
-
+  user_data = "${file("appmount.sh")}"
+  
 #provisioner "remote-exec" {
 #    inline = [
  #     "sudo mkdir -p /efs_app",

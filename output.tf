@@ -44,9 +44,9 @@ output "efs_mount_target_ip_address_1" {
 }
 
 vars {
-    web = "${aws_efs_mount_target.webdata_efs.*.ip_address}"
+    web = "${aws_efs_mount_target.webdata_efs_1.*.ip_address}"
   }
 
 vars {
-    app = "${aws_efs_mount_target.appdata_efs.*.ip_address}"
+    app = "${aws_efs_mount_target.appdata_efs_1.*.ip_address}"
   }

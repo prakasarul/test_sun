@@ -30,8 +30,12 @@ resource "aws_efs_file_system" "appdata_efs" {
    security_groups = ["${aws_security_group.allow-ssh.id}"]
  }
 
-#resource "null_resource" "example2" {
-#  provisioner "local-exec" {
-#    command = "sh efs_pre.sh"
-#  }
-#}
+resource "null_resource" "example2" {
+vars {
+    web = "${aws_efs_mount_target.webdata_efs_1.*.ip_address}"
+  }
+
+vars {
+    app = "${aws_efs_mount_target.appdata_efs_1.*.ip_address}"
+  }
+}

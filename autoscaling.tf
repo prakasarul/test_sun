@@ -50,7 +50,7 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-web" {
       propagate_at_launch = true
   }
   provisioner "local-exec" {
-    command = "./getips.sh"
+    command = "sh getips.sh"
   }
 }
 
@@ -75,7 +75,7 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-app" {
       propagate_at_launch = true
   }
   provisioner "local-exec" {
-    command = "./getips.sh"
+    command = "sh getips.sh"
   }
 }
 

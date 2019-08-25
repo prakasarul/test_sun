@@ -42,6 +42,6 @@ data "template_file" "appm" {
   template = "${file("appmount.sh.tpl")}"
 
   vars {
-    web = "${aws_efs_mount_target.appdata_efs_1.*.ip_address}"
+    app = "${aws_efs_mount_target.appdata_efs_1.*.ip_address}"
   }
 }

@@ -33,7 +33,7 @@ resource "aws_efs_file_system" "appdata_efs" {
 data "template_file" "webm" {
   template = "${file("webmount.sh.tpl")}"
 
-  vars {
+  vars = {
     web = "${aws_efs_mount_target.webdata_efs_1.*.ip_address}"
   }
 }
@@ -41,7 +41,7 @@ data "template_file" "webm" {
 data "template_file" "appm" {
   template = "${file("appmount.sh.tpl")}"
 
-  vars {
+  vars = {
     app = "${aws_efs_mount_target.appdata_efs_1.*.ip_address}"
   }
 }

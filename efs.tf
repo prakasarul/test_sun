@@ -30,12 +30,18 @@ resource "aws_efs_file_system" "appdata_efs" {
    security_groups = ["${aws_security_group.allow-ssh.id}"]
  }
 
-resource "null_resource" "example2" {
-vars {
+data "template_file" "webm" {
+  template = "${file("webmount.sh.tpl")}"
+
+  vars {
     web = "${aws_efs_mount_target.webdata_efs_1.*.ip_address}"
   }
+}
 
-vars {
-    app = "${aws_efs_mount_target.appdata_efs_1.*.ip_address}"
+data "template_file" "appm" {
+  template = "${file("appmount.sh.tpl")}"
+
+  vars {
+    web = "${aws_efs_mount_target.appdata_efs_1.*.ip_address}"
   }
 }

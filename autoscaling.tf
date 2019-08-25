@@ -49,9 +49,9 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-web" {
       value = "${format("web-%03d", count.index + 1)}"
       propagate_at_launch = true
   }
-  provisioner "local-exec" {
-    command = "sh getips.sh"
-  }
+  #provisioner "local-exec" {
+   # command = "sh getips.sh"
+  #}
 }
 
 resource "aws_autoscaling_attachment" "asg_attachment_bar_web" {
@@ -74,9 +74,9 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-app" {
       value = "${format("app-%03d", count.index + 1)}"
       propagate_at_launch = true
   }
-  provisioner "local-exec" {
-    command = "sh getips.sh"
-  }
+  #provisioner "local-exec" {
+   # command = "sh getips.sh"
+  #}
 }
 
 resource "aws_autoscaling_attachment" "asg_attachment_bar_app" {

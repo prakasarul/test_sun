@@ -9,6 +9,12 @@ variable "AMIS" {
     eu-west-1 = "ami-0d729a60"
   }
 }
+
+variable "azs" {
+    default = {
+        "ap-south-1" = "ap-south-1a, ap-south-1b, ap-south-1c"
+    }
+}
 variable "PATH_TO_PRIVATE_KEY" {
   default = "mykey"
 }

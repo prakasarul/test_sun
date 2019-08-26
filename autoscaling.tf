@@ -6,14 +6,6 @@ resource "aws_launch_configuration" "moonshot-launchconfig-web" {
   key_name             = "${aws_key_pair.mykey.key_name}"
   security_groups      = ["${aws_security_group.allow-ssh.id}"]
   user_data = "${file("webmount.sh")}"
-  
-  #provisioner "remote-exec" {
-  #  inline = [
-  #   "sudo mkdir -p /efs_web",
-  #    "sudo mount -t nfs4 -o nfsvers=4.1 $web:/ /efs_web",
-  #    "sudo su -c \"echo '$web:/ /efs_web nfs defaults,vers=4.1 0 0' >> /etc/fstab\"",
-  #  ]
-  #}
 }
 
 resource "aws_launch_configuration" "moonshot-launchconfig-app" {
@@ -25,14 +17,6 @@ resource "aws_launch_configuration" "moonshot-launchconfig-app" {
   security_groups      = ["${aws_security_group.allow-ssh.id}"]
   #user_data = "${data.template_file.appm.rendered}"
   user_data = "${file("appmount.sh")}"
-  
-#provisioner "remote-exec" {
-#    inline = [
- #     "sudo mkdir -p /efs_app",
- #     "sudo mount -t nfs4 -o nfsvers=4.1 $app:/ /efs_app",
-  #    "sudo su -c \"echo '$app:/ /efs_app nfs defaults,vers=4.1 0 0' >> /etc/fstab\"",
-   # ]
-  #}
 }
 
 resource "aws_autoscaling_group" "moonshot-autoscaling-web" {
@@ -50,9 +34,6 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-web" {
       value = "${format("web-%03d", count.index + 1)}"
       propagate_at_launch = true
   }
-  #provisioner "local-exec" {
-   # command = "sh getips.sh"
-  #}
 }
 
 resource "aws_autoscaling_attachment" "asg_attachment_bar_web" {
@@ -75,9 +56,6 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-app" {
       value = "${format("app-%03d", count.index + 1)}"
       propagate_at_launch = true
   }
-  #provisioner "local-exec" {
-   # command = "sh getips.sh"
-  #}
 }
 
 resource "aws_autoscaling_attachment" "asg_attachment_bar_app" {

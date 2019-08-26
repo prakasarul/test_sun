@@ -1,5 +1,5 @@
 resource "aws_elb" "my-elb-web" {
-  name = "my-elb"
+  name = "my-elb-web"
   subnets = ["${aws_subnet.moonshot-private-web.id}"]
   security_groups = ["${aws_security_group.elb-securitygroup.id}"]
  listener {
@@ -26,7 +26,7 @@ resource "aws_elb" "my-elb-web" {
 
     
 resource "aws_elb" "my-elb-app" {
-  name = "my-elb"
+  name = "my-elb-app"
   subnets = ["${aws_subnet.moonshot-private-app.id}"]
   security_groups = ["${aws_security_group.elb-securitygroup.id}"]
  listener {

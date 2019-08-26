@@ -10,11 +10,8 @@ resource "aws_instance" "jump" {
 
   # the public SSH key
   key_name = "${aws_key_pair.mykey.key_name}"
-  
-    tag {
-      key = "Name"
-      value = "Jump"
-      propagate_at_launch = true
+  tags = {
+    Name = "Jump"
   }
 }
 
@@ -31,10 +28,8 @@ resource "aws_instance" "dbmaster" {
   # the public SSH key
   key_name = "${aws_key_pair.mykey.key_name}"
   
-    tag {
-      key = "Name"
-      value = "DB_Master"
-      propagate_at_launch = true
+  tags = {
+    Name = "DB_Mater"
   }
 }
 
@@ -51,9 +46,7 @@ resource "aws_instance" "dbslave" {
   # the public SSH key
   key_name = "${aws_key_pair.mykey.key_name}"
   
-    tag {
-      key = "Name"
-      value = "DB_Slave"
-      propagate_at_launch = true
+  tags = {
+    Name = "DB_Slave"
   }
 }

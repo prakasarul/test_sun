@@ -29,3 +29,23 @@ resource "aws_subnet" "moonshot-private-app" {
         Name = "moonshot-private-app"
     }
 }
+resource "aws_subnet" "moonshot-private-dbmaster" {
+    vpc_id = "${aws_vpc.moonshot.id}"
+    cidr_block = "10.0.4.0/24"
+    map_public_ip_on_launch = "false"
+    availability_zone = "ap-south-1a"
+
+    tags = {
+        Name = "moonshot-private-dbmaster"
+    }
+}
+resource "aws_subnet" "moonshot-private-dbslave" {
+    vpc_id = "${aws_vpc.moonshot.id}"
+    cidr_block = "10.0.5.0/24"
+    map_public_ip_on_launch = "false"
+    availability_zone = "ap-south-1b"
+
+    tags = {
+        Name = "moonshot-private-dbslave"
+    }
+}

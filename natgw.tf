@@ -28,3 +28,11 @@ resource "aws_route_table_association" "moonshot-private-app" {
     subnet_id = "${aws_subnet.moonshot-private-app.id}"
     route_table_id = "${aws_route_table.moonshot-private.id}"
 }
+resource "aws_route_table_association" "moonshot-private-dbmaster" {
+    subnet_id = "${aws_subnet.moonshot-private-dbmaster.id}"
+    route_table_id = "${aws_route_table.moonshot-private.id}"
+}
+resource "aws_route_table_association" "moonshot-private-dbslave" {
+    subnet_id = "${aws_subnet.moonshot-private-dbslave.id}"
+    route_table_id = "${aws_route_table.moonshot-private.id}"
+}

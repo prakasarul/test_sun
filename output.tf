@@ -107,7 +107,7 @@ output "efs_mount_target_dns_name_db" {
   value = "${aws_efs_mount_target.dbdata_efs_1.*.dns_name}"
 }
 
-output "efs_mount_target_ip_address_app" {
+output "efs_mount_target_ip_address_db" {
   value = "${aws_efs_mount_target.dbdata_efs_1.*.ip_address}"
 }
 

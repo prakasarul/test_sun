@@ -69,7 +69,7 @@ output "dbslave_private_subnets_cidr_blocks" {
 
 output "nat_ids" {
   description = "List of allocation ID of Elastic IPs created for AWS NAT Gateway"
-  value       = "${aws_eip.moonshot-nat.*.id}"
+  value       = "${aws_nat_gateway.moonshot-nat-gw.*.id}"
 }
 
 output "nat_public_ips" {

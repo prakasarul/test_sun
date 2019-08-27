@@ -4,24 +4,24 @@
 
 output "vpc_id" {
   description = "The ID of the VPC"
-  value       = "${concat(aws_vpc.moonshot.*.id, [""])[0]}"
+  value       = "${aws_vpc.moonshot.*.id}"
 }
 output "vpc_cidr_block" {
   description = "The CIDR block of the VPC"
-  value       = "${concat(aws_vpc.moonshot.*.cidr_block, [""])[0]}"
+  value       = "${aws_vpc.moonshot.*.cidr_block}"
 }
 output "security_group_id" {
   description = "The ID of the security group created by default on VPC creation"
-  value       = "${concat(aws_security_group.allow-ssh.*.id, [""])[0]}"
+  value       = "${aws_security_group.allow-ssh.*.id}"
 }
 output "security_group_id_elb" {
   description = "The ID of the security group created by default on VPC creation"
-  value       = "${concat(aws_security_group.elb-securitygroup.*.id, [""])[0]}"
+  value       = "${aws_security_group.elb-securitygroup.*.id}"
 }
 
 output "default_route_table_id" {
   description = "The ID of the default route table"
-  value       = "${concat(aws_route_table.moonshot-public.*.id, [""])[0]}"
+  value       = "${aws_route_table.moonshot-public.*.id}"
 }
 output "jump_public_subnets" {
   description = "List of IDs of jump public subnets"
@@ -84,7 +84,7 @@ output "natgw_ids" {
 
 output "igw_id" {
   description = "The ID of the Internet Gateway"
-  value       = "${concat(aws_internet_gateway.moonshot-gw.*.id, [""])[0]}"
+  value       = "${aws_internet_gateway.moonshot-gw.*.id}"
 }
 
 output "efs_mount_target_dns_name_web" {

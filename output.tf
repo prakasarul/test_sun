@@ -111,3 +111,17 @@ output "efs_mount_target_ip_address_app" {
   value = "${aws_efs_mount_target.dbdata_efs_1.*.ip_address}"
 }
 
+output "jump_server_ip" {
+  description = "List of public IPs created for jump server"
+  value       = aws_instance.jump.*.public_ip
+}
+
+output "dbmaster_server_ip" {
+  description = "List of private IPs created for DB Master"
+  value       = aws_instance.dbmaster.*.private_ip
+}
+
+output "dbslave_server_ip" {
+  description = "List of private IPs created for DB DB Slave"
+  value       = aws_instance.dbmaster.*.private_ip
+}

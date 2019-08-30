@@ -5,8 +5,7 @@ log=moviehub_inventory
 echo "# Ansible Inventory" >>$log
 echo "Version 1.0" >>$log
 echo "Author: Gopala Krishnan Chellappa <gopac25@gmail.com>" >>$log
-echo -e "\n" >>$log
-
+echo -e "\n\n" >>$log
 echo "###############################################################################" >>$log
 echo "# Groups" >>$log
 echo "###############################################################################" >>$log
@@ -26,7 +25,7 @@ aws ec2 describe-instances --filters "Name=instance-state-name,Values=running" -
 echo -e "\n" >>$log
 echo "[dbslave]" >>$log
 aws ec2 describe-instances --filters "Name=instance-state-name,Values=running" --query 'Reservations[].Instances[].[PrivateIpAddress,Tags[?Key==`Name`].Value[]]'| sed 's/None$/None\n/' | sed '$!N;s/\n/ /'|grep -i slave >>$log
-echo -e "\n" >>$echo -e "\n" >>$log
+echo -e "\n" >>$log
 echo "[web-servers]" >>$log
 aws ec2 describe-instances --filters "Name=instance-state-name,Values=running" --query 'Reservations[].Instances[].[PrivateIpAddress,Tags[?Key==`Name`].Value[]]'| sed 's/None$/None\n/' | sed '$!N;s/\n/ /'|grep -i web >>$log
 echo -e "\n" >>$log

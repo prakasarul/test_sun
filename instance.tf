@@ -29,7 +29,7 @@ resource "aws_instance" "dbmaster" {
   key_name = "${aws_key_pair.mykey.key_name}"
   
   tags = {
-    Name = "DB_Mater"
+    Name = "DB_Master"
   }
 }
 

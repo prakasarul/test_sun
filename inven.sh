@@ -2,9 +2,9 @@
 
 log=moviehub_inventory
 >$log
-echo "#Ansible Inventory" >>$log
+echo "# Ansible Inventory" >>$log
 echo "Version 1.0" >>$log
-echo "Author: Gopala Krishnan Chellappa <gopac25@gmail.com> >>$log
+echo "Author: Gopala Krishnan Chellappa <gopac25@gmail.com>" >>$log
 
 echo "###############################################################################" >>$log
 echo "# Groups" >>$log

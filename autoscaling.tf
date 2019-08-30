@@ -31,6 +31,7 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-web" {
 
   tag {
       key = "Name"
+      count = 0
       value = "${format("web-%03d", count.index + 1)}"
       propagate_at_launch = true
   }
@@ -53,6 +54,7 @@ resource "aws_autoscaling_group" "moonshot-autoscaling-app" {
   
   tag {
       key = "Name"
+      count = 0
       value = "${format("app-%03d", count.index + 1)}"
       propagate_at_launch = true
   }

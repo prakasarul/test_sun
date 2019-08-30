@@ -22,5 +22,5 @@ variable "PATH_TO_PUBLIC_KEY" {
   default = "mykey.pub"
 }
 variable "count" {
-    value = 1
+    default = 1
 }

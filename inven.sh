@@ -4,10 +4,11 @@ log=moviehub_inventory
 >$log
 echo "# Ansible Inventory" >>$log
 echo "Version 1.0" >>$log
-echo -e "Author: Gopala Krishnan Chellappa <gopac25@gmail.com>\n\n" >>$log
+echo -e "Author: Gopala Krishnan Chellappa <gopac25@gmail.com>\n" >>$log
 echo "###############################################################################" >>$log
 echo "# Groups" >>$log
-echo -e"###############################################################################/n" >>$log
+echo "###############################################################################" >>$log
+echo "" >>$log
 echo "[all-servers:children]" >>$log
 echo "jump" >>$log
 echo "dbmaster" >>$log
